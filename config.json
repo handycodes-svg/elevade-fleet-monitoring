@@ -1,0 +1,105 @@
+{
+  "system": {
+    "name": "ELEVADE Fleet Monitoring — MR2 Screening Only",
+    "version": "1.0",
+    "lastUpdated": "31 Jul 2026"
+  },
+
+  "google_sheets": {
+    "data_store_sheet": "_DATA_STORE",
+    "output_sheet": "Screening MR2",
+    "mr_spreadsheet_id": "1nU7X3rwHJFeFBixdqwYXqgBoIe1etu7v9pxdtBuqjcQ",
+    "mr_sheet_name": "STG_MR",
+    "drive_folder_id": "1kFEMkoTInhlRE0FCe9EtxyT69QKOVX-N",
+    "processed_subfolder": "processed"
+  },
+
+  "data_retention": {
+    "retention_days": 30,
+    "new_threshold_days": 3,
+    "no_recent_threshold_days": 21
+  },
+
+  "warning_fault_correlation": {
+    "time_window_minutes": 10,
+    "mr_min_keywords": 2,
+    "include_description_match": true
+  },
+
+  "ata_equivalence": {
+    "77": ["71", "75", "73", "70"],
+    "71": ["77"],
+    "75": ["77"],
+    "73": ["77"],
+    "70": ["77"]
+  },
+
+  "csv_columns": [
+    "Priority", "Message", "Message Type", "Report", "A/C Model", "A/C Reg",
+    "Flight No", "Phase", "ATA", "Source", "Occurence", "Sent", "Repetitive"
+  ],
+
+  "email": {
+    "trigger_hour": 17,
+    "subject_prefix": "ELEVADE Monitoring",
+    "recipients": [
+      "handy@airasia.com",
+      "irwansyahendra@airasia.com",
+      "nugrohobudiprayitno@airasia.com",
+      "aliabdullah@airasia.com",
+      "wawangunawan@airasia.com",
+      "nursumirat@airasia.com",
+      "bibid@airasia.com",
+      "ruslisaidih@airasia.com",
+      "pujiadiprabowo@airasia.com",
+      "dimasmahardka@airasia.com",
+      "muhammadbagus@airasia.com",
+      "mochsellabramantio@airasia.com"
+    ],
+    "exclude_messages": [
+      "BRAKES HOT"
+    ]
+  },
+
+  "spurious_messages": [
+    "ICAO ADDRESS/HF1(3RE1)",
+    "NO SDU DATA",
+    "COM SATCOM FAULT",
+    "FWC2 :NO DATA FROM ECU1B",
+    "COM SATCOM DATA FAULT",
+    "SDAC2:NO DATA FROM PHC2",
+    "SDAC2:NO DATA FROM PHC1",
+    "SDAC1:NO DATA FROM PHC2",
+    "SDAC1:NO DATA FROM PHC1",
+    "AFS:FADEC2",
+    "NO EIU 2 DATA",
+    "NO EIU 2 DATA (INTM)",
+    "AFS:FADEC1",
+    "POWER SUPPLY INTERRUPT",
+    "FWC1 :NO DATA FROM FCDC1",
+    "AFS:ELAC2",
+    "FWC1 :NO DATA FROM FQI1A/1B",
+    "FWC2 :NO DATA FROM FQI1A/1B",
+    "ICAO ADDRESS/HF2(3RE2)",
+    "DIR1 (101RH) / OBRM",
+    "AFS:RA1",
+    "AFS:28V PWR 11XU1",
+    "AFS:FMGC2",
+    "AFS:FMGC1",
+    "AFS:ELAC1",
+    "OBRM/CIDS(101RH)-SDF1/"
+  ],
+
+  "subsystem_keywords": [
+    "ELAC", "SEC", "SFCC", "SLAT", "FLAP", "THS", "RUDDER",
+    "AILERON", "SPOILER", "FCDC", "STABILIZER", "PITCH", "ROLL", "YAW"
+  ],
+
+  "notes": {
+    "fleet": "AirAsia Indonesia A320 fleet (PK-AXD to PK-AZY, ~25-27 aircraft)",
+    "data_source": "ELEVADE ACARS CSV exports (Warning & Fault Messages)",
+    "mr2_only": "System screens ONLY OPEN MR2 items, ignoring MR3 & non-MEL categories",
+    "correlation_logic": "Warning-Fault pairs matched by: same A/C Reg, time window ±10min, ATA Chapter compatibility, keyword overlap",
+    "email_filter": "Daily email @ 17:00 WIB: shows only REPETITIVE (Count ≥2) + CURRENT (last 3 days) items"
+  }
+}
